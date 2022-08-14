@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbmsProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="Admin_id" />
+    </Key>
+    <Property Name="Admin_id" Type="int" Nullable="false" />
+    <Property Name="AdminPassword" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="courses">
+    <Key>
+      <PropertyRef Name="Cid" />
+    </Key>
+    <Property Name="Cid" Type="int" Nullable="false" />
+    <Property Name="Cname" Type="varchar" MaxLength="20" />
+    <Property Name="CreditHours" Type="varchar" MaxLength="20" />
+    <Property Name="Slot" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="did" />
+    </Key>
+    <Property Name="did" Type="int" Nullable="false" />
+    <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="registraton">
+    <Key>
+      <PropertyRef Name="Regid" />
+    </Key>
+    <Property Name="Regid" Type="int" Nullable="false" />
+    <Property Name="Cid" Type="int" />
+    <Property Name="Tid" Type="int" />
+    <Property Name="stdid" Type="int" />
+    <Property Name="did" Type="int" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="stdid" />
+    </Key>
+    <Property Name="stdid" Type="int" Nullable="false" />
+    <Property Name="StdName" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="20" />
+    <Property Name="SPassword" Type="varchar" MaxLength="20" />
+    <Property Name="Age" Type="int" />
+    <Property Name="gender" Type="varchar" MaxLength="20" />
+    <Property Name="Saddress" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Teachers">
+    <Key>
+      <PropertyRef Name="Tid" />
+    </Key>
+    <Property Name="Tid" Type="int" Nullable="false" />
+    <Property Name="TName" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="20" />
+    <Property Name="TPassword" Type="varchar" MaxLength="20" />
+    <Property Name="Age" Type="int" />
+    <Property Name="gender" Type="varchar" MaxLength="20" />
+    <Property Name="Taddress" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <Association Name="FK__registrat__stdid__33D4B598">
+    <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+    <End Role="registraton" Type="Self.registraton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="stdid" />
+      </Principal>
+      <Dependent Role="registraton">
+        <PropertyRef Name="stdid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__registraton__Cid__31EC6D26">
+    <End Role="courses" Type="Self.courses" Multiplicity="0..1" />
+    <End Role="registraton" Type="Self.registraton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="courses">
+        <PropertyRef Name="Cid" />
+      </Principal>
+      <Dependent Role="registraton">
+        <PropertyRef Name="Cid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__registraton__did__34C8D9D1">
+    <End Role="department" Type="Self.department" Multiplicity="0..1" />
+    <End Role="registraton" Type="Self.registraton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="did" />
+      </Principal>
+      <Dependent Role="registraton">
+        <PropertyRef Name="did" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__registraton__Tid__32E0915F">
+    <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+    <End Role="registraton" Type="Self.registraton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teachers">
+        <PropertyRef Name="Tid" />
+      </Principal>
+      <Dependent Role="registraton">
+        <PropertyRef Name="Tid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbmsProjectModelStoreContainer">
+    <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="courses" EntityType="Self.courses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="registraton" EntityType="Self.registraton" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__registrat__stdid__33D4B598" Association="Self.FK__registrat__stdid__33D4B598">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="registraton" EntitySet="registraton" />
+    </AssociationSet>
+    <AssociationSet Name="FK__registraton__Cid__31EC6D26" Association="Self.FK__registraton__Cid__31EC6D26">
+      <End Role="courses" EntitySet="courses" />
+      <End Role="registraton" EntitySet="registraton" />
+    </AssociationSet>
+    <AssociationSet Name="FK__registraton__did__34C8D9D1" Association="Self.FK__registraton__did__34C8D9D1">
+      <End Role="department" EntitySet="department" />
+      <End Role="registraton" EntitySet="registraton" />
+    </AssociationSet>
+    <AssociationSet Name="FK__registraton__Tid__32E0915F" Association="Self.FK__registraton__Tid__32E0915F">
+      <End Role="Teachers" EntitySet="Teachers" />
+      <End Role="registraton" EntitySet="registraton" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
